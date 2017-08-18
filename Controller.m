@@ -90,26 +90,15 @@ BOOL pressed;
     [pool release];
 }
 
-- (BOOL)getClickMode
-{
-    return needToClick;
-}
-
-- (void)setMode:(BOOL)click
-{
-    needToClick = click;
-}
-
 int callback(int device, Finger *data, int nFingers, double timestamp, int frame) {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    
-    if(needToClick)
     {
         
         if(nFingers == 3)
         {
             if(!pressed)
             {
+                NSLog(@"pressed");
                 CGEventRef ourEvent = CGEventCreate(NULL);
                 CGPoint ourLoc = CGEventGetLocation(ourEvent);
                 CGEventPost (kCGHIDEventTap, CGEventCreateMouseEvent (NULL,kCGEventOtherMouseDown,ourLoc,kCGMouseButtonCenter));
